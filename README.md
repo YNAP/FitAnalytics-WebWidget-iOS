@@ -46,11 +46,7 @@ It comes in two build flavors:
 
 You can find the minimal example project that uses the binary framework in **UniversalFramework/Framework Example** subdirectory of the repository.
 
-**Step 1.** Download the framework package from the release page:
-
-Complete build: [FitAnalytics_WebWidget.framework-v0.5.3-all.tar.gz](https://github.com/UPcload/FitAnalytics-WebWidget-iOS/releases/download/v0.5.3/FitAnalytics_WebWidget.framework-v0.5.3-all.tar.gz)
-
-Device-only build: [FitAnalytics_WebWidget.framework-v0.5.3-device_only.tar.gz](https://github.com/UPcload/FitAnalytics-WebWidget-iOS/releases/download/v0.5.3/FitAnalytics_WebWidget.framework-v0.5.3-device_only.tar.gz)
+**Step 1.** Download the framework package from the (release page)[https://github.com/UPcload/FitAnalytics-WebWidget-iOS/releases]
 
 **Step 2.** Unpack the binary framework and add to the XCode project  via "Add files ..." context menu.
 
@@ -332,17 +328,14 @@ This method will be called after the `getRecommendation` call on the FITAWebWidg
  *  };
  *  means that the product is available in size M but not in size L.
  */
-@property (nonatomic, strong) NSDictionary<NSString *, NSNumber *> *manufacturedSizes;
+@property (nonatomic, strong) NSDictionary<NSString *, BOOL *> *manufacturedSizes;
 
 
 /**
  * In stock sizes for the current product.
- * E.G. @[
-        @{@"value": @"M", @"isAvailable": @YES},
-        @{@"value": @"L", @"isAvailable": @NO}
-    ]
+ * E.G. @[ @"S", @"XL" ]
  */
-@property (nonatomic, strong) NSArray<NSDictionary<NSString *, NSNumber *> *> *sizes;
+@property (nonatomic, strong) NSArray<NSString *> *sizes;
 
 /**
  * The user identifier based on the shop's user id, for example in case the user is logged in.
@@ -399,6 +392,11 @@ This method will be called after the `getRecommendation` call on the FITAWebWidg
 @property (nonatomic, strong) NSString *userBraCup;
 @property (nonatomic, strong) NSString *userBraSystem;
 
+/**
+ * Enforces the mobile view, so in tablets you will see the phone widget layout.
+ */
+@property (nonatomic, assign) BOOL showMobile;
+
 @end
 ```
 
@@ -406,7 +404,9 @@ This method will be called after the `getRecommendation` call on the FITAWebWidg
 
 ## Purchase reporting
 
-Purchase reporting usually means that when the user receives a confirmation of a successful purchases, namely, the user sees the Order Confirmation Page (a.k.a OCP or checkout page), the app will report all items in the order to Fit Analytics. The reporting is done by sending a simple HTTP request.
+Providing purchase data not only provides you with insights but also continually enhances the value Fit Finder and our personalized recommendations add to your e-commerce platform. Therefore, we highly recommend you to set up purchase reporting on your end.
+
+The reporting is done by sending a simple HTTP request.
 
 The usual report is a collection of attributes such as the order ID, the product serial for each purchased item, purchased size, price, currency, etc.
 
